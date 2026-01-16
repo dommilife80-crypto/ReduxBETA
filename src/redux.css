@@ -419,58 +419,6 @@ body {
     opacity: 0;
   }
 }
-@font-face {
-  font-family: open sans;
-  src: url(fonts/OpenSans-Regular.ttf);
-}
-@font-face {
-  font-family: icecaps;
-  src: url(fonts/IceCaps.ttf);
-}
-@font-face {
-  font-family: brazierflame;
-  src: url(fonts/BrazierFlame.ttf);
-}
-@font-face {
-  font-family: burnstown;
-  src: url(fonts/burnstown.ttf);
-}
-@font-face {
-  font-family: chlorinar;
-  src: url(fonts/chlorinar.ttf);
-}
-@font-face {
-  font-family: facon;
-  src: url(fonts/Facon.ttf);
-}
-@font-face {
-  font-family: ampad;
-  src: url(fonts/ampad.ttf);
-}
-@font-face {
-  font-family: archistico;
-  src: url(fonts/archistico.ttf);
-}
-@font-face {
-  font-family: breakaway;
-  src: url(fonts/breakaway.ttf);
-}
-@font-face {
-  font-family: conformity;
-  src: url(fonts/conformity.ttf);
-}
-@font-face {
-  font-family: electroharmonix;
-  src: url(fonts/electroharmonix.ttf);
-}
-@font-face {
-  font-family: pwjoyeuxnoel;
-  src: url(fonts/PWJoyeuxNoel.ttf);
-}
-@font-face {
-  font-family: leckerli-one;
-  src: url(fonts/leckerli-one.ttf);
-}
 .t1 {
   color: #25f;
 }

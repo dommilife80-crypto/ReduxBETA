@@ -614,9 +614,22 @@ class XHR_v4dBj2ayea9a5_Inst {
     }
     this.currentServer = AxisLockThreshold;
     this.currentServerName = NghauAMea965_VAL.name;
-    const drawMinimapInterval = NghauAMea965_VAL.ssl == 1 ? "wss://" : "ws://";
-    this.socket = new WebSocket(drawMinimapInterval + AxisLockThreshold);
-    this.socket.binaryType = "arraybuffer";
+    // === FIX: Proxy Connection ===
+const drawMinimapInterval = NghauAMea965_VAL.ssl == 1 ? "wss://" : "ws://";
+const originalUrl = drawMinimapInterval + AxisLockThreshold;
+
+// Если запущено на localhost, перенаправляем через прокси
+if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    const proxyUrl = "ws://" + window.location.host + "/ws?target=" + encodeURIComponent(originalUrl);
+    console.log("[PROXY FIX] Redirecting to:", proxyUrl);
+    this.socket = new WebSocket(proxyUrl);
+} else {
+    // На GitHub Pages или другом хостинге — пытаемся напрямую (скорее всего не сработает)
+    this.socket = new WebSocket(originalUrl);
+}
+this.socket.binaryType = "arraybuffer";
+// === END FIX ===
+
     let baseCellSize = this;
     this.socket.onopen = this.onConnect.bind(this);
     this.socket.onmessage = this.onMessage.bind(this);

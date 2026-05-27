@@ -613,34 +613,38 @@ class XHR_v4dBj2ayea9a5_Inst {
       $("#currentServerName").text(this.currentServerName);
     }
     this.currentServer = AxisLockThreshold;
-    this.currentServerName = NghauAMea965_VAL.name;
-    // === FIX: Proxy Connection ===
-const drawMinimapInterval = NghauAMea965_VAL.ssl == 1 ? "wss://" : "ws://";
-const originalUrl = drawMinimapInterval + AxisLockThreshold;
+    // NghauAMea965VAL не существует в этой области видимости, ставим заглушку, чтобы не было ошибки
+    this.currentServerName = "Gota Server"; 
 
-// Если запущено на localhost, перенаправляем через прокси
-if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-    const proxyUrl = "ws://" + window.location.host + "/ws?target=" + encodeURIComponent(originalUrl);
-    console.log("[PROXY FIX] Redirecting to:", proxyUrl);
+    // --- FIX START ---
+    // Мы знаем, что Gota использует wss, поэтому жестко задаем протокол
+    const drawMinimapInterval = "wss://";
+    
+    // Формируем реальный адрес сервера (wss://IP:PORT)
+    const realUrl = drawMinimapInterval + AxisLockThreshold;
+    
+    // Подключаемся к локальному прокси (ws://localhost:3000/ws)
+    // Он перешлет данные на realUrl и подменит заголовки
+    const proxyUrl = "ws://" + window.location.host + "/ws?target=" + encodeURIComponent(realUrl);
+
+    console.log("Proxy Game Connection:", proxyUrl);
     this.socket = new WebSocket(proxyUrl);
-} else {
-    // На GitHub Pages или другом хостинге — пытаемся напрямую (скорее всего не сработает)
-    this.socket = new WebSocket(originalUrl);
-}
-this.socket.binaryType = "arraybuffer";
-// === END FIX ===
+    // --- FIX END ---
 
+
+    this.socket.binaryType = "arraybuffer";
     let baseCellSize = this;
     this.socket.onopen = this.onConnect.bind(this);
     this.socket.onmessage = this.onMessage.bind(this);
     this.socket.onclose = function (AxisLockThreshold) {
-      
+
       BigIntLsuea9cc_ex(false);
       const drawMinimapInterval = AxisLockThreshold.reason
         ? "Reason: " + AxisLockThreshold.reason
         : "";
+      console.log("[DEBUG] WebSocket close event:", AxisLockThreshold);
       if (baseCellSize.isPrimary) {
-        
+
         baseCellSize.reset();
         baseCellSize.selfMsg(
           "Disconnected from the server. " + drawMinimapInterval
@@ -653,7 +657,7 @@ this.socket.binaryType = "arraybuffer";
           "Disconnected from " + minimapSmoothFactor
         );
       } else {
-        
+
         const combinedCameraDistanceThreshold =
           faCUfKea9fb_add() === baseCellSize;
         const combinedZoomFocusStrength = baseCellSize.isConnecting;
@@ -673,15 +677,15 @@ this.socket.binaryType = "arraybuffer";
       }
       if (this.nextUrl != null) {
         if (!baseCellSize.isPrimary) {
-          
+
           baseCellSize.isConnecting = true;
         }
         baseCellSize.connect(this.nextUrl);
       } else if (!baseCellSize.isPrimary && baseCellSize.isConnecting) {
-        
+
         Logger.warn("Player 2 connection failed. Retrying in 5 seconds.");
         baseCellSize.reconnectIntervalId = setTimeout(() => {
-          
+
           baseCellSize.attemptPlayer2Connection();
         }, 5000);
       }
@@ -5182,7 +5186,7 @@ async function NeweNPdm() {
         If$sEyzqKbhea93f_Exec.mouseZoom *= baseCellSize;
         Str_NmyJ4kX.mouseZoom *= baseCellSize;
       }
-      If$sEyqKbhea93f_Exec.mouseZoom = Math.max(
+      If$sEyzqKbhea93f_Exec.mouseZoom = Math.max(
         0.15,
         Math.min(If$sEyzqKbhea93f_Exec.mouseZoom, 8)
       );
@@ -5302,7 +5306,7 @@ async function NeweNPdm() {
   const SKIN_LOAD_STATUS = async (AxisLockThreshold) => {
     const minimapSmoothFactor = ["Beta", "Anubis"];
     const drawMinimapInterval = await fetch(
-      "https://accounts.gota.io/api/v1/utilities/servers"
+      "/api/v1/utilities/servers.json"
     );
     const baseCellSize = await drawMinimapInterval.json();
     Logger.info("Fetched Servers", baseCellSize);
